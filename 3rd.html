@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electricity Billing System - Payment Processing</title>
+  <style>
+    /* Styles */
+  </style>
+</head>
+<body>
+  <h1>Payment Processing</h1>
+  <form id="paymentForm">
+    <label for="customerID">Customer ID:</label>
+    <input type="text" id="customerID" placeholder="Customer ID">
+    <label for="amount">Amount to Pay:</label>
+    <input type="text" id="amount" placeholder="Amount to Pay">
+    <label for="paymentMethod">Payment Method:</label>
+    <select id="paymentMethod">
+      <option value="credit_card">Credit Card</option>
+      <option value="debit_card">Debit Card</option>
+      <option value="bank_transfer">Bank Transfer</option>
+    </select>
+    <button type="submit">Process Payment</button>
+  </form>
+
+  <script>
+    document.getElementById('paymentForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const customerID = document.getElementById('customerID').value;
+      const amount = document.getElementById('amount').value;
+      const paymentMethod = document.getElementById('paymentMethod').value;
+
+      // Call payment processing API
+      const response = await fetch('/api/payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ customerID, amount, paymentMethod })
+      });
+
+      const data = await response.json();
+      console.log(data); // Handle response accordingly
+    });
+  </script>
+</body>
+</html>

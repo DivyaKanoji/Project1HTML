@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electricity Billing System - Bill Generation</title>
+  <style>
+    /* Styles */
+  </style>
+</head>
+<body>
+  <h1>Bill Generation</h1>
+  <form id="billForm">
+    <label for="customerID">Customer ID:</label>
+    <input type="text" id="customerID" placeholder="Customer ID">
+    <label for="month">Month:</label>
+    <input type="text" id="month" placeholder="Month">
+    <label for="units">Units Consumed:</label>
+    <input type="text" id="units" placeholder="Units Consumed">
+    <button type="submit">Generate Bill</button>
+  </form>
+
+  <script>
+    document.getElementById('billForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const customerID = document.getElementById('customerID').value;
+      const month = document.getElementById('month').value;
+      const units = document.getElementById('units').value;
+
+      // Call bill generation API
+      const response = await fetch('/api/bill', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ customerID, month, units })
+      });
+
+      const data = await response.json();
+      console.log(data); // Handle response accordingly
+    });
+  </script>
+</body>
+</html>
